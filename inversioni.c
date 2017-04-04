@@ -2,11 +2,12 @@
 #include <stdlib.h>
 #include "inversioni.h"
 
-int merge(int A[], int p, int q, int r, int *inv){
+int merge(int A[], int p, int q, int r){
     int dim1=q-p+1;
     int dim2=r-q;
     int i, j, k, s;
     int *L, *R;
+    int sum=0;
     L=(int*)malloc(sizeof(int)*dim1);
     R=(int*)malloc(sizeof(int)*dim2);
     for(i=0; i<dim1; i++){
@@ -20,7 +21,6 @@ int merge(int A[], int p, int q, int r, int *inv){
     i=0;
     j=0;
     for(k=p; k<=r; k++){
-        printf("ora inv = %d\n",*inv);
         if(i<dim1 && j<dim2){
             if(L[i]<=R[j]){
                 A[k]=L[i];
@@ -29,8 +29,8 @@ int merge(int A[], int p, int q, int r, int *inv){
             else{
                 A[k]=R[j];
                 j++;
-                *inv+=(dim1-i);
-                printf("inv = %d, dim1 = %d, i = %d\n",*inv, dim1, i);
+                sum+=(dim1-i);
+                printf("inv = %d, val = %d, dim1 = %d, i = %d\n",100/**inv*/, sum, dim1, i);
                 for(s=0; s<k; s++)
                     printf("A[%d] = %d\n",s, A[k]);
             }
@@ -48,17 +48,17 @@ int merge(int A[], int p, int q, int r, int *inv){
             }
         }
     }
-    return *inv;
+    return sum;
 }
 
 int inversioni(int v[], int inf, int sup){
     int q;
-    int inv=0;
+    int val=0;
     if(inf<sup){
         q=(inf+sup)/2;
         inversioni(v, inf, q);
         inversioni(v, q+1, sup);
-        inv+=merge(v, inf, q, sup, &inv);
+        val+=merge(v, inf, q, sup);
     }
-    return inv;
+    return val;
 }

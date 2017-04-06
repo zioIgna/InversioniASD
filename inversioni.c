@@ -49,7 +49,7 @@ int merge(int A[], int p, int q, int r){
 
 
 int inversioni(int v[], int inf, int sup){
-    int invsx, invdx, invtot, invparz;
+    int invsx, invdx, invtot;
     int q;
     invdx=invsx=invtot=invparz=0;
     if(inf<sup){
